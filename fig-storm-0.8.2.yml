@@ -1,0 +1,54 @@
+# syslog:
+#   image: bryantsai/rsyslog
+#   hostname: syslog
+#   expose:
+#     - "514/udp"
+zookeeper:
+  image: bryantsai/zookeeper
+  hostname: zookeeper
+  ports:
+    - "42181:2181"
+  expose:
+    - "2888"
+    - "3888"
+nimbus:
+  image: billywatson/storm:0.8.2
+  hostname: nimbus
+  command: nimbus drpc
+  ports:
+    - "46627:6627"
+  expose:
+    - "3772"
+    - "3773"
+  links:
+    - zookeeper:zk
+supervisor:
+  image: billywatson/storm:0.8.2
+  hostname: supervisor
+  command: supervisor
+  ports:
+    - "8000"
+  expose:
+    - "6700"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+ui:
+  image: billywatson/storm:0.8.2
+  hostname: ui
+  command: ui
+  ports:
+    - "48080:8080"
+  links: 
+    - nimbus:nimbus
+    - zookeeper:zk
+cli:
+  image: billywatson/storm:0.8.2
+  hostname: cli
+  command: cli
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+  volumes:
+    - .:/code
+  working_dir: /code

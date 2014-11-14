@@ -1,5 +1,5 @@
 FROM ubuntu:14.10
-MAINTAINER bryantsai
+MAINTAINER billywatson
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
@@ -12,8 +12,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 ENV STORM_HOME /usr/share/storm
-ENV STORM_VERSION 0.9.2-incubating
-ENV STORM_DOWNLOAD_URL http://apache.claz.org/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz
+ENV STORM_VERSION 0.8.2
+ENV STORM_DOWNLOAD_URL https://www.dropbox.com/s/fl4kr7w0oc8ihdw/storm-0.8.2.zip
 
 RUN apt-get update \
  && apt-get install -y curl \
@@ -25,7 +25,7 @@ RUN apt-get update \
  && useradd --gid storm --home-dir /home/storm --create-home --shell /bin/bash storm \
  && mkdir /var/log/storm \
  && chown -R storm:storm /var/log/storm \
- && ln -s /usr/share/apache-storm-$STORM_VERSION $STORM_HOME \
+ && ln -s /usr/share/storm-$STORM_VERSION $STORM_HOME \
  && ln -s $STORM_HOME/bin/storm /usr/bin/storm
 
 ADD storm.yaml $STORM_HOME/conf/storm.yaml
