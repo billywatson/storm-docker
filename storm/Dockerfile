@@ -12,7 +12,7 @@ RUN apt-get update \
 
 ENV STORM_HOME /usr/share/storm
 ENV STORM_VERSION 0.9.2-incubating
-ENV STORM_DOWNLOAD_URL http://apache.claz.org/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz
+ENV STORM_DOWNLOAD_URL http://apache.claz.org/incubator/storm/apache-storm-0.9.1-incubating/apache-storm-0.9.1-incubating.tar.gz
 
 RUN apt-get update \
  && apt-get install -y curl \
