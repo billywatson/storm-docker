@@ -16,8 +16,8 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 ENV STORM_HOME /usr/share/storm
-ENV STORM_VERSION 0.8.2
-ENV STORM_DOWNLOAD_URL https://www.dropbox.com/s/fl4kr7w0oc8ihdw/storm-0.8.2.zip
+ENV STORM_VERSION 0.8.1
+ENV STORM_DOWNLOAD_URL https://www.dropbox.com/s/smesqx9uwa7f0qk/storm-0.8.1.zip
 
 # Install ZeroMQ
 RUN curl -sSL http://download.zeromq.org/zeromq-2.1.7.tar.gz -o zeromq-2.1.7.tar.gz \
