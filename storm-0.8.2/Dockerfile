@@ -61,8 +61,9 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 # Make sure storm user has access to everything
 RUN chown -R storm:storm /var/log/storm \
+ && chown -R storm:storm /var/log/supervisor \
  && chown -R storm:storm $STORM_HOME \
- && chown -R storm:storm /var/log/supervisor
+ && chown -R storm:storm /usr/share/storm-$STORM_VERSION
 
 ADD storm.yaml $STORM_HOME/conf/storm.yaml
 ADD cluster.xml $STORM_HOME/logback/cluster.xml
