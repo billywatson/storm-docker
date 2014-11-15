@@ -1,5 +1,5 @@
 syslog:
-  image: bryantsai/rsyslog
+  image: billywatson/rsyslog
   hostname: syslog
   expose:
     - "514/udp"
