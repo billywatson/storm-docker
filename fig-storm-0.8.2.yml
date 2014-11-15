@@ -1,8 +1,8 @@
-# syslog:
-#   image: bryantsai/rsyslog
-#   hostname: syslog
-#   expose:
-#     - "514/udp"
+syslog:
+  image: bryantsai/rsyslog
+  hostname: syslog
+  expose:
+    - "514/udp"
 zookeeper:
   image: bryantsai/zookeeper
   hostname: zookeeper
@@ -11,6 +11,8 @@ zookeeper:
   expose:
     - "2888"
     - "3888"
+  links:
+    - syslog:syslog
 nimbus:
   image: billywatson/storm:0.8.2
   hostname: nimbus
@@ -22,6 +24,7 @@ nimbus:
     - "3773"
   links:
     - zookeeper:zk
+    - syslog:syslog
 supervisor:
   image: billywatson/storm:0.8.2
   hostname: supervisor
@@ -33,6 +36,7 @@ supervisor:
   links:
     - nimbus:nimbus
     - zookeeper:zk
+    - syslog:syslog
 ui:
   image: billywatson/storm:0.8.2
   hostname: ui
@@ -42,6 +46,7 @@ ui:
   links: 
     - nimbus:nimbus
     - zookeeper:zk
+    - syslog:syslog
 cli:
   image: billywatson/storm:0.8.2
   hostname: cli
@@ -49,6 +54,7 @@ cli:
   links:
     - nimbus:nimbus
     - zookeeper:zk
+    - syslog:syslog
   volumes:
     - .:/code
   working_dir: /code
