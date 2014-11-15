@@ -54,11 +54,15 @@ RUN rm -rf /var/lib/apt/lists/* \
  && groupadd storm \
  && useradd --gid storm --home-dir /home/storm --create-home --shell /bin/bash storm \
  && mkdir /var/log/storm \
- && chown -R storm:storm /var/log/storm \
  && ln -s /usr/share/storm-$STORM_VERSION $STORM_HOME \
  && ln -s $STORM_HOME/bin/storm /usr/bin/storm \
  && ln -s $STORM_HOME/logs /var/log/storm \
  && mkdir /var/lib/dhcp3/
+
+# Make sure storm user has access to everything
+RUN chown -R storm:storm /var/log/storm \
+ && chown -R storm:storm $STORM_HOME \
+ && chown -R storm:storm /var/log/supervisor
 
 ADD storm.yaml $STORM_HOME/conf/storm.yaml
 ADD cluster.xml $STORM_HOME/logback/cluster.xml
